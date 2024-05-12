@@ -15,7 +15,7 @@ jobs:
           go-version: 1.17
 
       - name: SubFinder - DNS Enumeration
-        uses: ./.github/action/subfinder
+        uses: projectdiscovery/subfinder-action@main
         with:
           domain: projectdiscovery.io
 
