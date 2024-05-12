@@ -1,4 +1,4 @@
-name: nmap 👁
+name: 👁 nmap
 on:
   workflow_dispatch:
     inputs:
