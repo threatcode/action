@@ -50,12 +50,26 @@ runs:
 
     - name: Run SubFinder
       run: |
-        subfinder \
-          ${{ inputs.domain }} \
-          ${{ inputs.list }} \
-          ${{ inputs.config }} \
-          ${{ inputs.output }} \
-          ${{ if inputs.json }} "-json" ${{ end }} \
-          ${{ inputs.flags }} \
-          ${{ if inputs.active }} "-nW" ${{ end }}
+        command="subfinder ${{ inputs.domain }}"
+        if [ ! -z "${{ inputs.list }}" ]; then
+          command="$command -dL ${{ inputs.list }}"
+        fi
+        if [ ! -z "${{ inputs.config }}" ]; then
+          command="$command -config ${{ inputs.config }}"
+        fi
+        if [ ! -z "${{ inputs.output }}" ]; then
+          command="$command -o ${{ inputs.output }}"
+        else
+          command="$command -o subfinder.log"
+        fi
+        if [ "${{ inputs.json }}" = true ]; then
+          command="$command -json"
+        fi
+        if [ "${{ inputs.active }}" = true ]; then
+          command="$command -nW"
+        fi
+        if [ ! -z "${{ inputs.flags }}" ]; then
+          command="$command ${inputs.flags}"
+        fi
+        $command
       shell: bash
