@@ -1,22 +1,18 @@
-name: Nmap
-
-on:
-  workflow_dispatch:
-    inputs:
-      cmd:
-        description: 'Enter Nmap Switch'
+name: maigret 👁
+on:  
+ workflow_dispatch:
+   inputs:
+      target:
+        description: 'Enter target username'
         required: true
-
 jobs:
-  build:
+  Maigret:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
-
-      - name: Nmap Setup And Run!
-        run: |
-             sudo apt install nmap
-             sudo nmap ${{github.event.inputs.cmd }} >>result.txt
-      - name: Result
-        run: echo "$(<result.txt )"
+      - name:  Setup and cmd run 
+        run: | 
+             pip3 install maigret 
+             maigret ${{github.event.inputs.target }} -a >>output.txt
+      - name: Results
+        run: echo "$(<output.txt )"
