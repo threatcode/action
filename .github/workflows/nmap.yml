@@ -1,0 +1,22 @@
+name: Nmap
+
+on:
+  workflow_dispatch:
+    inputs:
+      cmd:
+        description: 'Enter Nmap Switch'
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Nmap Setup And Run!
+        run: |
+             sudo apt install nmap
+             sudo nmap ${{github.event.inputs.cmd }} >>result.txt
+      - name: Result
+        run: echo "$(<result.txt )"
